@@ -16,8 +16,7 @@ class Ornek(QMainWindow):
         super().__init__()
         self.initUI()
     
-    def initUI(self):
-        
+    def initUI(self):    
         #Pencere Özellikleri ayarlandı
         self.setGeometry(200,300,500,200)
         self.setWindowTitle("Basit Bir Menü")
