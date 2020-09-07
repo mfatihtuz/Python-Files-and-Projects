@@ -8,7 +8,6 @@ import datetime
 import os
 import re
 import numpy as np
-import time
 import random
 
 
@@ -1340,7 +1339,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tableView_yeniKisiEkle_kayitlilariGoruntule.setFont(font)
         """ ÖNEMLİ KISIM TABLE VIEW YERLESTIRMEK ICIN """
         ###############################################################
-        self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv")
+        self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
         model_yeniKisiEkle_kayitlilariGoruntule = PandasModel(self.df_yeniKisiEkle_kayitlilariGoruntule)
         self.tableView_yeniKisiEkle_kayitlilariGoruntule.setModel(model_yeniKisiEkle_kayitlilariGoruntule)
         self.tableView_yeniKisiEkle_kayitlilariGoruntule.horizontalHeader().setStretchLastSection(True)
@@ -5272,7 +5271,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 font.setPointSize(12)
                 self.tableView_musteriAldigiMalzemeler.setFont(font)
                 df_tarihFilter = pd.read_csv(
-                    "datastore/MUSTERI/" + self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv")
+                    "datastore/MUSTERI/" + self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",encoding='unicode_escape')
 
                 df_tarihFilter['TARİH'] = pd.to_datetime(df_tarihFilter['TARİH'])
 
@@ -5312,7 +5311,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             font.setPointSize(12)
             self.tableView_mustahsilBilgileri.setFont(font)
             df_tarihFilter = pd.read_csv(
-                "datastore/MUSTAHSIL/" + self.comboBox_mustahsilBilgileri_kayitliMustahsil.currentText() + ".csv")
+                "datastore/MUSTAHSIL/" + self.comboBox_mustahsilBilgileri_kayitliMustahsil.currentText() + ".csv",encoding='unicode_escape')
 
             df_tarihFilter['TARİH'] = pd.to_datetime(df_tarihFilter['TARİH'])
 
@@ -5351,7 +5350,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             font.setPointSize(12)
             self.tableView_musteriBilgileri.setFont(font)
             df_tarihFilter = pd.read_csv(
-                "datastore/MUSTERI/" + self.comboBox_musteriBilgileri_kayitliMusteri.currentText() + ".csv")
+                "datastore/MUSTERI/" + self.comboBox_musteriBilgileri_kayitliMusteri.currentText() + ".csv",encoding='unicode_escape')
 
             df_tarihFilter['TARİH'] = pd.to_datetime(df_tarihFilter['TARİH'])
 
@@ -5396,7 +5395,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 font.setPointSize(12)
                 self.tableView_kasaHesabi.setFont(font)
                 df_tarihFilter = pd.read_csv(
-                    "datastore/KASAHESABI/" + self.comboBox_kasaHesabi_odemeTuru.currentText() + ".csv")
+                    "datastore/KASAHESABI/" + self.comboBox_kasaHesabi_odemeTuru.currentText() + ".csv",encoding='unicode_escape')
 
                 df_tarihFilter['TARİH'] = pd.to_datetime(df_tarihFilter['TARİH'])
 
@@ -5465,7 +5464,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             self.lineEdit_yeniKisi_tel.text() + "," + self.lineEdit_yeniKisi_sehir.text() + "," + "MÜSTAHSİL" + "\n")
                     f.close()
 
-                    self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv")
+                    self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                     model_yeniKisiEkle_kayitlilariGoruntule = PandasModel(self.df_yeniKisiEkle_kayitlilariGoruntule)
                     self.tableView_yeniKisiEkle_kayitlilariGoruntule.setModel(model_yeniKisiEkle_kayitlilariGoruntule)
                     self.tableView_yeniKisiEkle_kayitlilariGoruntule.horizontalHeader().setStretchLastSection(True)
@@ -5483,7 +5482,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     self.comboBox_mustahsilBilgileri_kayitliMustahsil.addItem("Müstahsil Seçiniz")
                     ################################################################################################################
                     ## MÜSTAHSİLLER QComboBox'ları dolduruluyor
-                    self.df_mustahsilleriKisilerdenCek = pd.read_csv("datastore/kisiler.csv")
+                    self.df_mustahsilleriKisilerdenCek = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                     self.df_mustahsilleriKisilerdenCek = self.df_mustahsilleriKisilerdenCek[(
                             self.df_mustahsilleriKisilerdenCek["MÜŞTERİ/MÜSTAHSİL"] == "MÜSTAHSİL"
                     )]
@@ -5500,12 +5499,12 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         if os.path.isfile(str(self.mustahsillerinCSVdosyalariniOlustur_path)) == False:
                             self.file_mustahsillerinCSVdosyalariniOlustur = open(
                                 str(self.mustahsillerinCSVdosyalariniOlustur_path),
-                                "a", encoding='utf-8')
+                                "a", encoding='unicode_escape', errors='ignore')
                             self.file_mustahsillerinCSVdosyalariniOlustur.write(
                                 self.mustahsil_MUSTAHSIL_CSVfileHeaders + "\n")
                             self.file_mustahsillerinCSVdosyalariniOlustur.close()
                             self.file_mustahsillerinDevirDATdosyalariniOlustur = open(
-                                str(self.mustahsillerinDevirDATdosyalariniOlustur_path), "w", encoding='utf-8')
+                                str(self.mustahsillerinDevirDATdosyalariniOlustur_path), "w", encoding='unicode_escape', errors='ignore')
                             self.file_mustahsillerinDevirDATdosyalariniOlustur.write("0.0")
                             self.file_mustahsillerinDevirDATdosyalariniOlustur.close()
                         else:
@@ -5524,7 +5523,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         self.lineEdit_yeniKisi_tel.text() + "," + self.lineEdit_yeniKisi_sehir.text() + "," + "MÜSTAHSİL" + "\n")
                 f.close()
 
-                self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv")
+                self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                 model_yeniKisiEkle_kayitlilariGoruntule = PandasModel(self.df_yeniKisiEkle_kayitlilariGoruntule)
                 self.tableView_yeniKisiEkle_kayitlilariGoruntule.setModel(model_yeniKisiEkle_kayitlilariGoruntule)
                 self.tableView_yeniKisiEkle_kayitlilariGoruntule.horizontalHeader().setStretchLastSection(True)
@@ -5542,7 +5541,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 self.comboBox_mustahsilBilgileri_kayitliMustahsil.addItem("Müstahsil Seçiniz")
                 ################################################################################################################
                 ## MÜSTAHSİLLER QComboBox'ları dolduruluyor
-                self.df_mustahsilleriKisilerdenCek = pd.read_csv("datastore/kisiler.csv")
+                self.df_mustahsilleriKisilerdenCek = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                 self.df_mustahsilleriKisilerdenCek = self.df_mustahsilleriKisilerdenCek[(
                         self.df_mustahsilleriKisilerdenCek["MÜŞTERİ/MÜSTAHSİL"] == "MÜSTAHSİL"
                 )]
@@ -5559,12 +5558,12 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     if os.path.isfile(str(self.mustahsillerinCSVdosyalariniOlustur_path)) == False:
                         self.file_mustahsillerinCSVdosyalariniOlustur = open(
                             str(self.mustahsillerinCSVdosyalariniOlustur_path),
-                            "a", encoding='utf-8')
+                            "a", encoding='unicode_escape', errors='ignore')
                         self.file_mustahsillerinCSVdosyalariniOlustur.write(
                             self.mustahsil_MUSTAHSIL_CSVfileHeaders + "\n")
                         self.file_mustahsillerinCSVdosyalariniOlustur.close()
                         self.file_mustahsillerinDevirDATdosyalariniOlustur = open(
-                            str(self.mustahsillerinDevirDATdosyalariniOlustur_path), "w", encoding='utf-8')
+                            str(self.mustahsillerinDevirDATdosyalariniOlustur_path), "w", encoding='unicode_escape', errors='ignore')
                         self.file_mustahsillerinDevirDATdosyalariniOlustur.write("0.0")
                         self.file_mustahsillerinDevirDATdosyalariniOlustur.close()
                     else:
@@ -5608,7 +5607,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             self.lineEdit_yeniKisi_tel.text() + "," + self.lineEdit_yeniKisi_sehir.text() + "," + "MÜŞTERİ" + "\n")
                     f.close()
 
-                    self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv")
+                    self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                     model_yeniKisiEkle_kayitlilariGoruntule = PandasModel(self.df_yeniKisiEkle_kayitlilariGoruntule)
                     self.tableView_yeniKisiEkle_kayitlilariGoruntule.setModel(model_yeniKisiEkle_kayitlilariGoruntule)
                     self.tableView_yeniKisiEkle_kayitlilariGoruntule.horizontalHeader().setStretchLastSection(True)
@@ -5626,7 +5625,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.addItem("Müşteri Seçiniz")
                     ################################################################################################################
                     ## MÜSTAHSİLLER QComboBox'ları dolduruluyor
-                    self.df_musterileriKisilerdenCek = pd.read_csv("datastore/kisiler.csv")
+                    self.df_musterileriKisilerdenCek = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                     self.df_musterileriKisilerdenCek = self.df_musterileriKisilerdenCek[(
                             self.df_musterileriKisilerdenCek["MÜŞTERİ/MÜSTAHSİL"] == "MÜŞTERİ"
                     )]
@@ -5645,13 +5644,13 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         if os.path.isfile(str(self.musterilerinCSVdosyalariniOlustur_path)) == False:
 
                             self.file_musterilerinCSVdosyalariniOlustur = open(
-                                str(self.musterilerinCSVdosyalariniOlustur_path), "a", encoding='utf-8')
+                                str(self.musterilerinCSVdosyalariniOlustur_path), "a", encoding='unicode_escape', errors='ignore')
                             self.file_musterilerinCSVdosyalariniOlustur.write(
                                 self.musteri_MUSTERI_CSVfileHeaders + "\n")
                             self.file_musterilerinCSVdosyalariniOlustur.close()
 
                             self.file_musterilerinDevirDATdosyalariniOlustur = open(
-                                str(self.musterilerinDevirDATdosyalariniOlustur_path), "w", encoding='utf-8')
+                                str(self.musterilerinDevirDATdosyalariniOlustur_path), "w", encoding='unicode_escape', errors='ignore')
                             self.file_musterilerinDevirDATdosyalariniOlustur.write("0.0")
                             self.file_musterilerinDevirDATdosyalariniOlustur.close()
 
@@ -5669,7 +5668,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                                 self.myStringForAlinanMalzemeler += "," + str(
                                     sorted_listFor_musteriAldigiMalzemelerUrunler[j])
                             self.file_musteriAldigiMalzemeler = open(str(self.musteriAldigiMalzemelerCSV_path), "w",
-                                                                     encoding='utf-8')
+                                                                     encoding='unicode_escape', errors='ignore')
                             self.file_musteriAldigiMalzemeler.write(self.myStringForAlinanMalzemeler)
                             self.file_musteriAldigiMalzemeler.close()
                         else:
@@ -5690,7 +5689,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         self.lineEdit_yeniKisi_tel.text() + "," + self.lineEdit_yeniKisi_sehir.text() + "," + "MÜŞTERİ" + "\n")
                 f.close()
 
-                self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv")
+                self.df_yeniKisiEkle_kayitlilariGoruntule = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                 model_yeniKisiEkle_kayitlilariGoruntule = PandasModel(self.df_yeniKisiEkle_kayitlilariGoruntule)
                 self.tableView_yeniKisiEkle_kayitlilariGoruntule.setModel(model_yeniKisiEkle_kayitlilariGoruntule)
                 self.tableView_yeniKisiEkle_kayitlilariGoruntule.horizontalHeader().setStretchLastSection(True)
@@ -5708,7 +5707,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.addItem("Müşteri Seçiniz")
                 ################################################################################################################
                 ## MÜSTAHSİLLER QComboBox'ları dolduruluyor
-                self.df_musterileriKisilerdenCek = pd.read_csv("datastore/kisiler.csv")
+                self.df_musterileriKisilerdenCek = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
                 self.df_musterileriKisilerdenCek = self.df_musterileriKisilerdenCek[(
                         self.df_musterileriKisilerdenCek["MÜŞTERİ/MÜSTAHSİL"] == "MÜŞTERİ"
                 )]
@@ -5727,12 +5726,12 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     if os.path.isfile(str(self.musterilerinCSVdosyalariniOlustur_path)) == False:
 
                         self.file_musterilerinCSVdosyalariniOlustur = open(
-                            str(self.musterilerinCSVdosyalariniOlustur_path), "a", encoding='utf-8')
+                            str(self.musterilerinCSVdosyalariniOlustur_path), "a", encoding='unicode_escape', errors='ignore')
                         self.file_musterilerinCSVdosyalariniOlustur.write(self.musteri_MUSTERI_CSVfileHeaders + "\n")
                         self.file_musterilerinCSVdosyalariniOlustur.close()
 
                         self.file_musterilerinDevirDATdosyalariniOlustur = open(
-                            str(self.musterilerinDevirDATdosyalariniOlustur_path), "w", encoding='utf-8')
+                            str(self.musterilerinDevirDATdosyalariniOlustur_path), "w", encoding='unicode_escape', errors='ignore')
                         self.file_musterilerinDevirDATdosyalariniOlustur.write("0.0")
                         self.file_musterilerinDevirDATdosyalariniOlustur.close()
 
@@ -5748,7 +5747,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             self.myStringForAlinanMalzemeler += "," + str(
                                 sorted_listFor_musteriAldigiMalzemelerUrunler[j])
                         self.file_musteriAldigiMalzemeler = open(str(self.musteriAldigiMalzemelerCSV_path), "w",
-                                                                 encoding='utf-8')
+                                                                 encoding='unicode_escape', errors='ignore')
                         self.file_musteriAldigiMalzemeler.write(self.myStringForAlinanMalzemeler)
                         self.file_musteriAldigiMalzemeler.close()
                     else:
@@ -5814,7 +5813,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     if box.clickedButton() == buttonY:
                         self.file_mustahsilUrunAl_anlikDevirDATfile = open(
                             "datastore/MUSTAHSIL/" + self.comboBox_mustahsildenUrunAl_kayitliMustahsil.currentText() +
-                            " - Devir.dat", "r", encoding='utf-8')
+                            " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                         self.mustahsilUrunAl_Devir = float(self.file_mustahsilUrunAl_anlikDevirDATfile.read())
                         print("İşlem öncesi devir: " + str(self.mustahsilUrunAl_Devir))
                         self.file_mustahsilUrunAl_anlikDevirDATfile.close()
@@ -5831,7 +5830,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         self.file_mustahsilUrunAlDetaylariDosyayaIsle = open(
                             "datastore/MUSTAHSIL/" + self.comboBox_mustahsildenUrunAl_kayitliMustahsil.currentText() + ".csv",
-                            "a", encoding='utf-8')
+                            "a", encoding='unicode_escape', errors='ignore')
                         self.file_mustahsilUrunAlDetaylariDosyayaIsle.write(
                             yil_mustahsildenUrunAl_mustahsilBilgileriTablo + "-" +
                             ay_mustahsildenUrunAl_mustahsilBilgileriTablo + "-" +
@@ -5848,7 +5847,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         self.file_mustahsilUrunAl_anlikDevirDATfile = open(
                             "datastore/MUSTAHSIL/" + self.comboBox_mustahsildenUrunAl_kayitliMustahsil.currentText() +
-                            " - Devir.dat", "w", encoding='utf-8')
+                            " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                         self.file_mustahsilUrunAl_anlikDevirDATfile.write("{:.2f}".format(self.mustahsilUrunAl_Devir))
                         self.file_mustahsilUrunAl_anlikDevirDATfile.close()
                         self.randURNAL()
@@ -5857,7 +5856,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 else:
                     self.file_mustahsilUrunAl_anlikDevirDATfile = open(
                         "datastore/MUSTAHSIL/" + self.comboBox_mustahsildenUrunAl_kayitliMustahsil.currentText() +
-                        " - Devir.dat", "r", encoding='utf-8')
+                        " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                     self.mustahsilUrunAl_Devir = float(self.file_mustahsilUrunAl_anlikDevirDATfile.read())
                     print("İşlem öncesi devir: " + str(self.mustahsilUrunAl_Devir))
                     self.file_mustahsilUrunAl_anlikDevirDATfile.close()
@@ -5874,7 +5873,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     self.file_mustahsilUrunAlDetaylariDosyayaIsle = open(
                         "datastore/MUSTAHSIL/" + self.comboBox_mustahsildenUrunAl_kayitliMustahsil.currentText() + ".csv",
-                        "a", encoding='utf-8')
+                        "a", encoding='unicode_escape', errors='ignore')
                     self.file_mustahsilUrunAlDetaylariDosyayaIsle.write(
                         yil_mustahsildenUrunAl_mustahsilBilgileriTablo + "-" +
                         ay_mustahsildenUrunAl_mustahsilBilgileriTablo + "-" +
@@ -5891,7 +5890,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     self.file_mustahsilUrunAl_anlikDevirDATfile = open(
                         "datastore/MUSTAHSIL/" + self.comboBox_mustahsildenUrunAl_kayitliMustahsil.currentText() +
-                        " - Devir.dat", "w", encoding='utf-8')
+                        " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                     self.file_mustahsilUrunAl_anlikDevirDATfile.write("{:.2f}".format(self.mustahsilUrunAl_Devir))
                     self.file_mustahsilUrunAl_anlikDevirDATfile.close()
                     self.randURNAL()
@@ -5933,7 +5932,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     if box.clickedButton() == buttonY:
                         self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile = open(
                             "datastore/MUSTAHSIL/" + self.comboBox_mustahsilOdemeDetaylari_kayitliMustahsil.currentText() +
-                            " - Devir.dat", "r", encoding='utf-8')
+                            " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                         self.mustahsileYapilanOdemeDetaylari_Devir = float(
                             self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile.read())
                         print("İşlem öncesi devir: " + str(self.mustahsileYapilanOdemeDetaylari_Devir))
@@ -5952,7 +5951,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         self.file_mustahsileYapilanOdemeDetaylariDosyayaIsle = open(
                             "datastore/MUSTAHSIL/" + self.comboBox_mustahsilOdemeDetaylari_kayitliMustahsil.currentText() + ".csv",
-                            "a", encoding='utf-8')
+                            "a", encoding='unicode_escape', errors='ignore')
                         self.file_mustahsileYapilanOdemeDetaylariDosyayaIsle.write(
                             yil_musteriyeYapilanOdeme_mustahsilBilgileriTablo + "-" +
                             ay_musteriyeYapilanOdeme_mustahsilBilgileriTablo + "-" +
@@ -5968,7 +5967,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile = open(
                             "datastore/MUSTAHSIL/" + self.comboBox_mustahsilOdemeDetaylari_kayitliMustahsil.currentText() +
-                            " - Devir.dat", "w", encoding='utf-8')
+                            " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                         self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile.write(
                             str(self.mustahsileYapilanOdemeDetaylari_Devir))
                         self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile.close()
@@ -5978,7 +5977,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 else:
                     self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile = open(
                         "datastore/MUSTAHSIL/" + self.comboBox_mustahsilOdemeDetaylari_kayitliMustahsil.currentText() +
-                        " - Devir.dat", "r", encoding='utf-8')
+                        " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                     self.mustahsileYapilanOdemeDetaylari_Devir = float(
                         self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile.read())
                     print("İşlem öncesi devir: " + str(self.mustahsileYapilanOdemeDetaylari_Devir))
@@ -5997,7 +5996,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     self.file_mustahsileYapilanOdemeDetaylariDosyayaIsle = open(
                         "datastore/MUSTAHSIL/" + self.comboBox_mustahsilOdemeDetaylari_kayitliMustahsil.currentText() + ".csv",
-                        "a", encoding='utf-8')
+                        "a", encoding='unicode_escape', errors='ignore')
                     self.file_mustahsileYapilanOdemeDetaylariDosyayaIsle.write(
                         yil_musteriyeYapilanOdeme_mustahsilBilgileriTablo + "-" +
                         ay_musteriyeYapilanOdeme_mustahsilBilgileriTablo + "-" +
@@ -6013,7 +6012,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile = open(
                         "datastore/MUSTAHSIL/" + self.comboBox_mustahsilOdemeDetaylari_kayitliMustahsil.currentText() +
-                        " - Devir.dat", "w", encoding='utf-8')
+                        " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                     self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile.write(
                         str(self.mustahsileYapilanOdemeDetaylari_Devir))
                     self.file_mustahsileYapilanOdemeDetaylari_anlikDevirDATfile.close()
@@ -6055,7 +6054,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     if box.clickedButton() == buttonY:
                         self.file_musteriUrunSatis_anlikDevirDATfile = open(
                             "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_KayitliMusteri.currentText() +
-                            " - Devir.dat", "r", encoding='utf-8')
+                            " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                         self.musteriUrunSatis_Devir = float(self.file_musteriUrunSatis_anlikDevirDATfile.read())
                         print("İşlem öncesi devir: " + str(self.musteriUrunSatis_Devir))
                         self.file_musteriUrunSatis_anlikDevirDATfile.close()
@@ -6066,7 +6065,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         self.file_musteriUrunSatisDetaylariDosyayaIsle = open(
                             "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_KayitliMusteri.currentText() + ".csv",
                             "a",
-                            encoding='utf-8')
+                            encoding='unicode_escape', errors='ignore')
                         yil_musteriUrunSatis_musteriBilgileriTablo = str(
                             self.comboBox_musteriUrunSatis_Yil.currentIndex() + 2019)
                         ay_musteriUrunSatis_musteriBilgileriTablo = str(
@@ -6095,7 +6094,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         self.file_musteriUrunSatis_anlikDevirDATfile = open(
                             "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_KayitliMusteri.currentText() +
-                            " - Devir.dat", "w", encoding='utf-8')
+                            " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                         self.file_musteriUrunSatis_anlikDevirDATfile.write("{:.2f}".format(self.musteriUrunSatis_Devir))
                         self.file_musteriUrunSatis_anlikDevirDATfile.close()
                         self.randURNST()
@@ -6104,7 +6103,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 else:
                     self.file_musteriUrunSatis_anlikDevirDATfile = open(
                         "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_KayitliMusteri.currentText() +
-                        " - Devir.dat", "r", encoding='utf-8')
+                        " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                     self.musteriUrunSatis_Devir = float(self.file_musteriUrunSatis_anlikDevirDATfile.read())
                     print("İşlem öncesi devir: " + str(self.musteriUrunSatis_Devir))
                     self.file_musteriUrunSatis_anlikDevirDATfile.close()
@@ -6115,7 +6114,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     self.file_musteriUrunSatisDetaylariDosyayaIsle = open(
                         "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_KayitliMusteri.currentText() + ".csv",
                         "a",
-                        encoding='utf-8')
+                        encoding='unicode_escape', errors='ignore')
                     yil_musteriUrunSatis_musteriBilgileriTablo = str(
                         self.comboBox_musteriUrunSatis_Yil.currentIndex() + 2019)
                     ay_musteriUrunSatis_musteriBilgileriTablo = str(
@@ -6144,7 +6143,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     self.file_musteriUrunSatis_anlikDevirDATfile = open(
                         "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_KayitliMusteri.currentText() +
-                        " - Devir.dat", "w", encoding='utf-8')
+                        " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                     self.file_musteriUrunSatis_anlikDevirDATfile.write("{:.2f}".format(self.musteriUrunSatis_Devir))
                     self.file_musteriUrunSatis_anlikDevirDATfile.close()
                     self.randURNST()
@@ -6192,7 +6191,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             # İlgili Müşteri Dosyasına Yaz
                             self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile = open(
                                 "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_kayitliMusteri.currentText() +
-                                " - Devir.dat", "r", encoding='utf-8')
+                                " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                             self.musteridenAlinanOdemeDetaylari_Devir = float(
                                 self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile.read())
                             print("İşlem öncesi devir: " + str(self.musteridenAlinanOdemeDetaylari_Devir))
@@ -6205,7 +6204,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             self.file_musteridenAlinanOdemeDetaylariDosyayaIsle = open(
                                 "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_kayitliMusteri.currentText() + ".csv",
                                 "a",
-                                encoding='utf-8')
+                                encoding='unicode_escape', errors='ignore')
                             yil_musteridenAlinanOdeme_musteriBilgileriTablo = str(
                                 self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.currentIndex() + 2019)
                             ay_musteridenAlinanOdeme_musteriBilgileriTablo = str(
@@ -6230,7 +6229,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                             self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile = open(
                                 "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_kayitliMusteri.currentText() +
-                                " - Devir.dat", "w", encoding='utf-8')
+                                " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                             self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile.write(
                                 "{:.2f}".format(self.musteridenAlinanOdemeDetaylari_Devir))
                             self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile.close()
@@ -6239,7 +6238,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                                 # Kasa Hesabına Yaz
                                 self.file_kasaHesabi_anlikDevirDATfile = open(
                                     "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() +
-                                    " - Devir.dat", "r", encoding='utf-8')
+                                    " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                                 self.kasaHesabi_Devir = float(self.file_kasaHesabi_anlikDevirDATfile.read())
                                 print("İşlem öncesi devir: " + str(self.kasaHesabi_Devir))
                                 self.file_kasaHesabi_anlikDevirDATfile.close()
@@ -6252,7 +6251,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                                     self.file_kasaHesabiDosyayaIsle = open(
                                         "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() + ".csv",
                                         "a",
-                                        encoding='utf-8')
+                                        encoding='unicode_escape', errors='ignore')
 
                                     gun_musteridenAlinanOdeme_musteriBilgileriTablo = str(
                                         self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.currentIndex()).zfill(2)
@@ -6274,7 +6273,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                                     self.file_kasaHesabi_anlikDevirDATfile = open(
                                         "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() +
-                                        " - Devir.dat", "w", encoding='utf-8')
+                                        " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                                     self.file_kasaHesabi_anlikDevirDATfile.write(
                                         "{:.2f}".format(self.kasaHesabi_Devir))
                                     self.file_kasaHesabi_anlikDevirDATfile.close()
@@ -6282,7 +6281,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                                     self.file_kasaHesabiDosyayaIsle = open(
                                         "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() + ".csv",
                                         "a",
-                                        encoding='utf-8')
+                                        encoding='unicode_escape', errors='ignore')
 
                                     gun_musteridenAlinanOdeme_musteriBilgileriTablo = str(
                                         self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.currentIndex()).zfill(2)
@@ -6305,7 +6304,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                                     self.file_kasaHesabi_anlikDevirDATfile = open(
                                         "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() +
-                                        " - Devir.dat", "w", encoding='utf-8')
+                                        " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                                     self.file_kasaHesabi_anlikDevirDATfile.write(
                                         "{:.2f}".format(self.kasaHesabi_Devir))
                                     self.file_kasaHesabi_anlikDevirDATfile.close()
@@ -6326,7 +6325,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         # İlgili Müşteri Dosyasına Yaz
                         self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile = open(
                             "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_kayitliMusteri.currentText() +
-                            " - Devir.dat", "r", encoding='utf-8')
+                            " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                         self.musteridenAlinanOdemeDetaylari_Devir = float(
                             self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile.read())
                         print("İşlem öncesi devir: " + str(self.musteridenAlinanOdemeDetaylari_Devir))
@@ -6339,7 +6338,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         self.file_musteridenAlinanOdemeDetaylariDosyayaIsle = open(
                             "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_kayitliMusteri.currentText() + ".csv",
                             "a",
-                            encoding='utf-8')
+                            encoding='unicode_escape', errors='ignore')
                         yil_musteridenAlinanOdeme_musteriBilgileriTablo = str(
                             self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.currentIndex() + 2019)
                         ay_musteridenAlinanOdeme_musteriBilgileriTablo = str(
@@ -6364,7 +6363,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile = open(
                             "datastore/MUSTERI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_kayitliMusteri.currentText() +
-                            " - Devir.dat", "w", encoding='utf-8')
+                            " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                         self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile.write(
                             "{:.2f}".format(self.musteridenAlinanOdemeDetaylari_Devir))
                         self.file_musteridenAlinanOdemeDetaylari_anlikDevirDATfile.close()
@@ -6373,7 +6372,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             # Kasa Hesabına Yaz
                             self.file_kasaHesabi_anlikDevirDATfile = open(
                                 "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() +
-                                " - Devir.dat", "r", encoding='utf-8')
+                                " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                             self.kasaHesabi_Devir = float(self.file_kasaHesabi_anlikDevirDATfile.read())
                             print("İşlem öncesi devir: " + str(self.kasaHesabi_Devir))
                             self.file_kasaHesabi_anlikDevirDATfile.close()
@@ -6386,7 +6385,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                                 self.file_kasaHesabiDosyayaIsle = open(
                                     "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() + ".csv",
                                     "a",
-                                    encoding='utf-8')
+                                    encoding='unicode_escape', errors='ignore')
 
                                 gun_musteridenAlinanOdeme_musteriBilgileriTablo = str(
                                     self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.currentIndex()).zfill(2)
@@ -6408,7 +6407,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                                 self.file_kasaHesabi_anlikDevirDATfile = open(
                                     "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() +
-                                    " - Devir.dat", "w", encoding='utf-8')
+                                    " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                                 self.file_kasaHesabi_anlikDevirDATfile.write(
                                     "{:.2f}".format(self.kasaHesabi_Devir))
                                 self.file_kasaHesabi_anlikDevirDATfile.close()
@@ -6416,7 +6415,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                                 self.file_kasaHesabiDosyayaIsle = open(
                                     "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() + ".csv",
                                     "a",
-                                    encoding='utf-8')
+                                    encoding='unicode_escape', errors='ignore')
 
                                 gun_musteridenAlinanOdeme_musteriBilgileriTablo = str(
                                     self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.currentIndex()).zfill(2)
@@ -6439,7 +6438,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                                 self.file_kasaHesabi_anlikDevirDATfile = open(
                                     "datastore/KASAHESABI/" + self.comboBox_musteriUrunSatis_AlinanOdeme_turu.currentText() +
-                                    " - Devir.dat", "w", encoding='utf-8')
+                                    " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                                 self.file_kasaHesabi_anlikDevirDATfile.write(
                                     "{:.2f}".format(self.kasaHesabi_Devir))
                                 self.file_kasaHesabi_anlikDevirDATfile.close()
@@ -6461,7 +6460,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
     def alacakVerecekGoster(self):
         try:
             tum_musteriler = []
-            df_file_tum_musteriler = pd.read_csv("datastore/kisiler.csv")
+            df_file_tum_musteriler = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
             df_file_tum_musteriler = df_file_tum_musteriler[(df_file_tum_musteriler["MÜŞTERİ/MÜSTAHSİL"] == "MÜŞTERİ")]
             tum_musteriler = list(set(df_file_tum_musteriler["AD SOYAD"].values))
             tum_musteriler = sorted(tum_musteriler)
@@ -6469,7 +6468,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             tmp_list_musteriler = []
             totalAlacak = 0
             for alacak in (tum_musteriler):
-                tmp_file_musteriler = open("datastore/MUSTERI/" + alacak + " - Devir.dat", "r", encoding='utf-8')
+                tmp_file_musteriler = open("datastore/MUSTERI/" + str(alacak) + " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                 tmp_devir_musteriler = float(tmp_file_musteriler.read())
                 if tmp_devir_musteriler == 0:
                     totalAlacak+=tmp_devir_musteriler
@@ -6503,7 +6502,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
 
             tum_mustahsiller = []
-            df_file_tum_mustahsiller = pd.read_csv("datastore/kisiler.csv")
+            df_file_tum_mustahsiller = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
             df_file_tum_mustahsiller = df_file_tum_mustahsiller[
                 (df_file_tum_mustahsiller["MÜŞTERİ/MÜSTAHSİL"] == "MÜSTAHSİL")]
             tum_mustahsiller = list(set(df_file_tum_mustahsiller["AD SOYAD"].values))
@@ -6512,7 +6511,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             totalBorc = 0
             tmp_list_mustahsiller = []
             for borc in (tum_mustahsiller):
-                tmp_file_mustahsiller = open("datastore/MUSTAHSIL/" + borc + " - Devir.dat", "r", encoding='utf-8')
+                tmp_file_mustahsiller = open("datastore/MUSTAHSIL/" + str(borc) + " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
                 tmp_devir_mustahsiller = float(tmp_file_mustahsiller.read())
                 if tmp_devir_mustahsiller == 0:
                     totalBorc += tmp_devir_mustahsiller
@@ -6559,7 +6558,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             font.setPointSize(12)
             self.tableView_kasaHesabi.setFont(font)
             self.df_kasaHesabiGoster = pd.read_csv(
-                "datastore/KASAHESABI/" + self.comboBox_kasaHesabi_odemeTuru.currentText() + ".csv")
+                "datastore/KASAHESABI/" + self.comboBox_kasaHesabi_odemeTuru.currentText() + ".csv",encoding='unicode_escape')
             model_kasaHesabiGoster = PandasModel(self.df_kasaHesabiGoster)
             self.tableView_kasaHesabi.setModel(model_kasaHesabiGoster)
             self.tableView_kasaHesabi.horizontalHeader().setStretchLastSection(True)
@@ -6582,7 +6581,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             font.setPointSize(12)
             self.tableView_mustahsilBilgileri.setFont(font)
             self.df_mustahsilBilgileriniGoster = pd.read_csv(
-                "datastore/MUSTAHSIL/" + self.comboBox_mustahsilBilgileri_kayitliMustahsil.currentText() + ".csv")
+                "datastore/MUSTAHSIL/" + self.comboBox_mustahsilBilgileri_kayitliMustahsil.currentText() + ".csv",encoding='unicode_escape')
             model_mustahsilBilgileriniGoster = PandasModel(self.df_mustahsilBilgileriniGoster)
             self.tableView_mustahsilBilgileri.setModel(model_mustahsilBilgileriniGoster)
             #self.tableView_mustahsilBilgileri.setSortingEnabled(True)
@@ -6601,7 +6600,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             font.setPointSize(12)
             self.tableView_musteriBilgileri.setFont(font)
             self.df_musteriBilgileriniGoster = pd.read_csv(
-                "datastore/MUSTERI/" + self.comboBox_musteriBilgileri_kayitliMusteri.currentText() + ".csv")
+                "datastore/MUSTERI/" + self.comboBox_musteriBilgileri_kayitliMusteri.currentText() + ".csv",encoding='unicode_escape')
             model_musteriBilgileriniGoster = PandasModel(self.df_musteriBilgileriniGoster)
             self.tableView_musteriBilgileri.setModel(model_musteriBilgileriniGoster)
             #self.tableView_musteriBilgileri.horizontalHeader().setStretchLastSection(True)
@@ -6620,7 +6619,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             font.setPointSize(12)
             self.tableView_musteriAldigiMalzemeler.setFont(font)
             self.df_musteriAldigiMalzemelerGoster = pd.read_csv(
-                "datastore/MUSTERI/" + self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv")
+                "datastore/MUSTERI/" + self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",encoding='unicode_escape')
             model_musteriAldigiMalzemelerGoster = PandasModel(self.df_musteriAldigiMalzemelerGoster)
             self.tableView_musteriAldigiMalzemeler.setModel(model_musteriAldigiMalzemelerGoster)
             self.tableView_musteriAldigiMalzemeler.setSortingEnabled(True)
@@ -6629,7 +6628,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
     def xTekrarDEF(self):
         try:
             self.df_xTekrar = pd.read_csv("datastore/MUSTERI/" +
-                                          self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + ".csv")
+                                          self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + ".csv",encoding='unicode_escape')
             list_xTekrar = list(set(self.df_xTekrar["TARİH"].values))
 
             if len(list_xTekrar) == 0:
@@ -6643,16 +6642,16 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
     def musterininAldigiUrunler(self,mau_tarih):
         try:
             self.df_tarihFiltresi = pd.read_csv("datastore/MUSTERI/" +
-                                                self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + ".csv")
+                                                self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + ".csv",encoding='unicode_escape')
             self.df_forMAU = pd.read_csv("datastore/MUSTERI/" +
-                                         self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv")
+                                         self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",encoding='unicode_escape')
             print(mau_tarih + " var mı ?")
             print(mau_tarih in self.df_forMAU["TARİH"].values)
             if (self.df_forMAU['TARİH'] == mau_tarih).any():
                 #self.df_forMAU.drop(self.df_forMAU.tail(1).index, inplace=True)
                 self.df_forMAU.to_csv("datastore/MUSTERI/" +
                                       self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",
-                                      index=False, encoding='utf-8')
+                                      index=False, encoding='unicode_escape', errors='ignore')
                 listForFill = []
                 for lsd in range(len(list(self.df_forMAU))):
                     listForFill.append("-----")
@@ -6662,7 +6661,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 self.df_forMAU.loc[self.df_forMAU["TARİH"] == "-----", "TARİH"] = str(mau_tarih)
                 self.df_forMAU.to_csv("datastore/MUSTERI/" +
                                       self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",
-                                      index=False, encoding='utf-8')
+                                      index=False, encoding='unicode_escape', errors='ignore')
             else:
                 listForFill = []
                 for lsd in range(len(list(self.df_forMAU))):
@@ -6671,7 +6670,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 self.df_forMAU.loc[self.df_forMAU["TARİH"] == "-----", "TARİH"] = str(mau_tarih)
                 self.df_forMAU.to_csv("datastore/MUSTERI/" +
                                       self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",
-                                      index=False, encoding='utf-8')
+                                      index=False, encoding='unicode_escape', errors='ignore')
 
             self.df_tarihFiltresi = self.df_tarihFiltresi[(self.df_tarihFiltresi["TARİH"] == mau_tarih)]
             theProductList = list(set(self.df_tarihFiltresi["ÜRÜN ADI"].tolist()))
@@ -6701,12 +6700,12 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     print()
                     contentP_tmp = str(the_avg) + " ₺ x " + str(sum_theQtyP) + " ADET"
                     self.df_newDFP = pd.read_csv("datastore/MUSTERI/" +
-                                                 self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv")
+                                                 self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",encoding='unicode_escape')
 
                     self.df_newDFP.loc[self.df_newDFP["TARİH"] == str(mau_tarih), theValueP] = str(contentP_tmp)
                     self.df_newDFP.to_csv("datastore/MUSTERI/" +
                                           self.comboBox_musteriAldigiMalzemeler_kayitliMusteri.currentText() + " - Aldığı Malzemeler.csv",
-                                          index=False, encoding='utf-8')
+                                          index=False, encoding='unicode_escape', errors='ignore')
                 except ValueError:
                     continue
                 except Exception as e: print(e)
@@ -6753,29 +6752,29 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
     def ilgiliSeraDosyalariniOlustur(self,YENISERA):
         try:
             # seralar.DAT dosyasina yeni sera ismi işlendi
-            file_seralarDATdosyasinaEkle = open("datastore/SERALAR/seralar.dat", "a+", encoding='utf-8')
+            file_seralarDATdosyasinaEkle = open("datastore/SERALAR/seralar.dat", "a+", encoding='unicode_escape', errors='ignore')
             file_seralarDATdosyasinaEkle.write(YENISERA + "\n")
             file_seralarDATdosyasinaEkle.close()
 
             # tablolar için sera gelir dosyasi oluşturuluyor
             seraGelirHeaders = "TARİH,SATILAN ÜRÜN,FİYAT,ADET,TUTAR,GELİR DEVİR"
-            file_yeniSera_seraGelir = open("datastore/SERALAR/GELIR/" + YENISERA + ".csv", "a+", encoding='utf-8')
+            file_yeniSera_seraGelir = open("datastore/SERALAR/GELIR/" + str(YENISERA) + ".csv", "a+", encoding='unicode_escape', errors='ignore')
             file_yeniSera_seraGelir.write(seraGelirHeaders + "\n")
             file_yeniSera_seraGelir.close()
             # tablolar için sera gelir devir dosyalasi oluşturuluyor
-            file_yeniSera_seraGelirDevir = open("datastore/SERALAR/GELIR/" + YENISERA + " - Devir.dat", "w+",
-                                                encoding='utf-8')
+            file_yeniSera_seraGelirDevir = open("datastore/SERALAR/GELIR/" + str(YENISERA) + " - Devir.dat", "w+",
+                                                encoding='unicode_escape', errors='ignore')
             file_yeniSera_seraGelirDevir.write("0.0")
             file_yeniSera_seraGelirDevir.close()
 
             # tablolar için sera gider dosyasi oluşturuluyor
             seraGiderHeaders = "TARİH,ELEMAN GİDERİ,YEMEK GİDERİ,MAZOT GİDERİ,DİĞER GİDER,AÇIKLAMA,TOPLAM,GİDER DEVİR"
-            file_yeniSera_seraGider = open("datastore/SERALAR/GIDER/" + YENISERA + ".csv", "a+", encoding='utf-8')
+            file_yeniSera_seraGider = open("datastore/SERALAR/GIDER/" + str(YENISERA) + ".csv", "a+", encoding='unicode_escape', errors='ignore')
             file_yeniSera_seraGider.write(seraGiderHeaders + "\n")
             file_yeniSera_seraGider.close()
             # tablolar için sera gider devir dosyalasi oluşturuluyor
-            file_yeniSera_seraGiderDevir = open("datastore/SERALAR/GIDER/" + YENISERA + " - Devir.dat", "w+",
-                                                encoding='utf-8')
+            file_yeniSera_seraGiderDevir = open("datastore/SERALAR/GIDER/" + str(YENISERA) + " - Devir.dat", "w+",
+                                                encoding='unicode_escape', errors='ignore')
             file_yeniSera_seraGiderDevir.write("0.0")
             file_yeniSera_seraGiderDevir.close()
             self.tumSeraSecmeQComboBoxlariniDoldur()
@@ -6844,7 +6843,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         # Devir dosyadan oku ve yazdır
                         file_seraGelir_anlikDevirDATfile = open(
                             "datastore/SERALAR/GELIR/" + self.comboBox_seraGelir_seralar.currentText() +
-                            " - Devir.dat", "r", encoding='utf-8')
+                            " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
 
                         seraGelir_Devir = float(file_seraGelir_anlikDevirDATfile.read())
                         print("İşlem öncesi devir: " + str(seraGelir_Devir))
@@ -6855,7 +6854,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         file_seraGelir_anlikDevirDATfile = open(
                             "datastore/SERALAR/GELIR/" + self.comboBox_seraGelir_seralar.currentText() +
-                            " - Devir.dat", "w", encoding='utf-8')
+                            " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                         file_seraGelir_anlikDevirDATfile.write("{:.2f}".format(seraGelir_Devir))
                         file_seraGelir_anlikDevirDATfile.close()
 
@@ -6863,7 +6862,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         file_seraGelirDosyayaIsle = open(
                             "datastore/SERALAR/GELIR/" + self.comboBox_seraGelir_seralar.currentText() + ".csv", "a",
-                            encoding='utf-8')
+                            encoding='unicode_escape', errors='ignore')
 
                         gun_seraGelir = str(self.comboBox_seraGelir_tarihSec_gun.currentIndex()).zfill(2)
                         ay_seraGelir = str(self.comboBox_seraGelir_tarihSec_ay.currentIndex()).zfill(2)
@@ -6891,7 +6890,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     # Devir dosyadan oku ve yazdır
                     file_seraGelir_anlikDevirDATfile = open(
                         "datastore/SERALAR/GELIR/" + self.comboBox_seraGelir_seralar.currentText() +
-                        " - Devir.dat", "r", encoding='utf-8')
+                        " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
 
                     seraGelir_Devir = float(file_seraGelir_anlikDevirDATfile.read())
                     print("İşlem öncesi devir: " + str(seraGelir_Devir))
@@ -6902,7 +6901,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     file_seraGelir_anlikDevirDATfile = open(
                         "datastore/SERALAR/GELIR/" + self.comboBox_seraGelir_seralar.currentText() +
-                        " - Devir.dat", "w", encoding='utf-8')
+                        " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                     file_seraGelir_anlikDevirDATfile.write("{:.2f}".format(seraGelir_Devir))
                     file_seraGelir_anlikDevirDATfile.close()
 
@@ -6910,7 +6909,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                     file_seraGelirDosyayaIsle = open(
                         "datastore/SERALAR/GELIR/" + self.comboBox_seraGelir_seralar.currentText() + ".csv", "a",
-                        encoding='utf-8')
+                        encoding='unicode_escape', errors='ignore')
 
                     gun_seraGelir = str(self.comboBox_seraGelir_tarihSec_gun.currentIndex()).zfill(2)
                     ay_seraGelir = str(self.comboBox_seraGelir_tarihSec_ay.currentIndex()).zfill(2)
@@ -6979,7 +6978,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             # Devir dosyadan oku ve yazdır
                             file_seraGider_anlikDevirDATfile = open(
                                 "datastore/SERALAR/GIDER/" + self.comboBox_seraGider_seralar.currentText() +
-                                " - Devir.dat", "r", encoding='utf-8')
+                                " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
 
                             seraGider_Devir = float(file_seraGider_anlikDevirDATfile.read())
                             print("İşlem öncesi devir: " + str(seraGider_Devir))
@@ -6990,7 +6989,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                             file_seraGider_anlikDevirDATfile = open(
                                 "datastore/SERALAR/GIDER/" + self.comboBox_seraGider_seralar.currentText() +
-                                " - Devir.dat", "w", encoding='utf-8')
+                                " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                             file_seraGider_anlikDevirDATfile.write("{:.2f}".format(seraGider_Devir))
                             file_seraGider_anlikDevirDATfile.close()
 
@@ -6999,7 +6998,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                             file_seraGiderDosyayaIsle = open(
                                 "datastore/SERALAR/GIDER/" + self.comboBox_seraGider_seralar.currentText() + ".csv",
                                 "a",
-                                encoding='utf-8')
+                                encoding='unicode_escape', errors='ignore')
 
                             gun_seraGider = str(self.comboBox_seraGider_tarihSec_gun.currentIndex()).zfill(2)
                             ay_seraGider = str(self.comboBox_seraGider_tarihSec_ay.currentIndex()).zfill(2)
@@ -7037,7 +7036,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                         # Devir dosyadan oku ve yazdır
                         file_seraGider_anlikDevirDATfile = open(
                             "datastore/SERALAR/GIDER/" + self.comboBox_seraGider_seralar.currentText() +
-                            " - Devir.dat", "r", encoding='utf-8')
+                            " - Devir.dat", "r", encoding='unicode_escape', errors='ignore')
 
                         seraGider_Devir = float(file_seraGider_anlikDevirDATfile.read())
                         print("İşlem öncesi devir: " + str(seraGider_Devir))
@@ -7048,7 +7047,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         file_seraGider_anlikDevirDATfile = open(
                             "datastore/SERALAR/GIDER/" + self.comboBox_seraGider_seralar.currentText() +
-                            " - Devir.dat", "w", encoding='utf-8')
+                            " - Devir.dat", "w", encoding='unicode_escape', errors='ignore')
                         file_seraGider_anlikDevirDATfile.write("{:.2f}".format(seraGider_Devir))
                         file_seraGider_anlikDevirDATfile.close()
 
@@ -7056,7 +7055,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
                         file_seraGiderDosyayaIsle = open(
                             "datastore/SERALAR/GIDER/" + self.comboBox_seraGider_seralar.currentText() + ".csv", "a",
-                            encoding='utf-8')
+                            encoding='unicode_escape', errors='ignore')
 
                         gun_seraGider = str(self.comboBox_seraGider_tarihSec_gun.currentIndex()).zfill(2)
                         ay_seraGider = str(self.comboBox_seraGider_tarihSec_ay.currentIndex()).zfill(2)
@@ -7097,7 +7096,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             else:
                 if self.comboBox_seraGelirSonuc_urunler.currentText() == "Hepsi":
                     df_seraGelir = pd.read_csv(
-                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv")
+                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv",encoding='unicode_escape')
 
                     model_seraGelir = PandasModel(df_seraGelir)
                     self.tableView_seraGelirSonuc.setModel(model_seraGelir)
@@ -7105,7 +7104,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     self.tableView_seraGelirSonuc.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
                 else:
                     df_seraGelir = pd.read_csv(
-                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv")
+                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv",encoding='unicode_escape')
                     df_seraGelir = df_seraGelir[
                         (df_seraGelir["SATILAN ÜRÜN"] == self.comboBox_seraGelirSonuc_urunler.currentText())]
 
@@ -7147,7 +7146,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
             else:
                 if self.comboBox_seraGelirSonuc_urunler.currentText() == "Hepsi":
                     df_seraGelir = pd.read_csv(
-                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv")
+                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv",encoding='unicode_escape')
 
                     df_seraGelir['TARİH'] = pd.to_datetime(df_seraGelir['TARİH'])
 
@@ -7180,7 +7179,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                     self.tableView_seraGelirSonuc.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
                 else:
                     df_seraGelir = pd.read_csv(
-                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv")
+                        "datastore/SERALAR/GELIR/" + self.comboBox_seraGelirSonuc_seralar.currentText() + ".csv",encoding='unicode_escape')
                     df_seraGelir = df_seraGelir[
                         (df_seraGelir["SATILAN ÜRÜN"] == self.comboBox_seraGelirSonuc_urunler.currentText())]
 
@@ -7244,7 +7243,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 self.lutfenSeraSecinizMessageBox()
             else:
                 df_seraGider = pd.read_csv(
-                    "datastore/SERALAR/GIDER/" + self.comboBox_seraGiderSonuc_seralar.currentText() + ".csv")
+                    "datastore/SERALAR/GIDER/" + self.comboBox_seraGiderSonuc_seralar.currentText() + ".csv",encoding='unicode_escape')
 
                 df_seraGider['ELEMAN GİDERİ'] = df_seraGider['ELEMAN GİDERİ'].str.replace(r' ₺', '')
                 df_seraGider['ELEMAN GİDERİ'] = df_seraGider['ELEMAN GİDERİ'].astype(float)
@@ -7304,7 +7303,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
                 self.lutfenSeraSecinizMessageBox()
             else:
                 df_seraGider = pd.read_csv(
-                    "datastore/SERALAR/GIDER/" + self.comboBox_seraGiderSonuc_seralar.currentText() + ".csv")
+                    "datastore/SERALAR/GIDER/" + self.comboBox_seraGiderSonuc_seralar.currentText() + ".csv",encoding='unicode_escape')
 
                 df_seraGider['TARİH'] = pd.to_datetime(df_seraGider['TARİH'])
 
@@ -7705,7 +7704,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
     def freshStartComboBoxFill(self):
         ################################################################################################################
         ## MÜSTAHSİLLER QComboBox'ları dolduruluyor
-        self.df_mustahsilleriKisilerdenCek = pd.read_csv("datastore/kisiler.csv")
+        self.df_mustahsilleriKisilerdenCek = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
         self.df_mustahsilleriKisilerdenCek = self.df_mustahsilleriKisilerdenCek[(
                 self.df_mustahsilleriKisilerdenCek["MÜŞTERİ/MÜSTAHSİL"] == "MÜSTAHSİL"
         )]
@@ -7723,7 +7722,7 @@ Program kullanıcıya teslim edilmeden önce, belirli testlerden geçirilmiştir
 
         ################################################################################################################
         ## MÜŞTERİLER QComboBox'ları dolduruluyor
-        self.df_musterileriKisilerdenCek = pd.read_csv("datastore/kisiler.csv")
+        self.df_musterileriKisilerdenCek = pd.read_csv("datastore/kisiler.csv",encoding='unicode_escape')
         self.df_musterileriKisilerdenCek = self.df_musterileriKisilerdenCek[(
                 self.df_musterileriKisilerdenCek["MÜŞTERİ/MÜSTAHSİL"] == "MÜŞTERİ"
         )]
@@ -7777,4 +7776,369 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.showMaximized()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())krardan </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Kişi Görüntüle</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> menüsüne tıklayıp oradan </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Müşteri Bilgilerini Görüntüle</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> butonuna tıklamanız gerekmektedir.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image033.png\" width=\"605\" height=\"268\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> </span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Bu iki sayfada da öncelikle </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Müstahsil/Müşteri</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> seçimi yapmalısınız. Daha sonra ilgili müşterinin tüm zamanlardaki işlemlerini görüntülemek için </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Tüm Verileri Göster</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> butonuna tıklayınız. Burada </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-style:italic; text-decoration: underline;\">kronlojik sıralama yerine, kullanıcının uygulamaya yaptığı giriş sıralamasına göre görüntüleme yapılır</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">. </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-style:italic; text-decoration: underline;\">Kronolojik sıralama yapmak için ve Tarih Filtresi uygulamak</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> için </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Tarih Aralığında Arama Yap</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> butonuna tıklamalısınız. Sol taraftaki başlangıç tarihi her seferinde </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">01/01/2020</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> varsayılan olarak seçili gelir, sağ taraftaki bitiş tarihi ise daha önceki kısımlarda bahsettiğimiz gibi bilgisayar yardımıyla </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Güncel Tarihi</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> seçer. Dilediğiniz tarih aralıklarında işlem yapmak için, başlangıç ve bitiş tarihlerini seçtikten sonra Tarih Aralığında Arama Yap butonuna tıklamanız yeterli.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:20pt; font-weight:600; color:#ff0000;\">6.</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt; color:#ff0000;\"> </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:20pt; font-weight:600; color:#ff0000;\">ALACAKLAR ve BORÇLAR</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image035.png\" width=\"604\" height=\"47\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Menüler’de bulunan </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Alacaklar Borçlar</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> simgesine tıkladığımızda aşağıdaki resimdeki sayfaya yönlendirlirsiniz.</span><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image037.png\" width=\"605\" height=\"277\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Bu bölümde, daha önceki menülerden yapılmış olunan girdiler sonucunda, hangi müşteriden ne kadar alacak var veya hangi müstahsile ne kadar borç var bunları takip edilebilecek.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:18pt; color:#000000;\"> </span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:20pt; font-weight:600; color:#ff0000;\">7.</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt; color:#ff0000;\"> </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:20pt; font-weight:600; color:#ff0000;\">KASAYA GİREN PARA HESABI</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image039.png\" width=\"605\" height=\"48\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Menüler’de bulunan </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Kasa Hesabı</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> simgesine tıkladığımızda aşağıdaki resimdeki sayfaya yönlendirlirsiniz.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image041.png\" width=\"604\" height=\"272\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Bu bölüm ise müşteriden aldığımız ödemeler ile oluşturulan kasanın takibi içindir. </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Nakit</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> ve </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Çek</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> olmak üzere 2 adet ödeme alınmaktadır. Bu ödemelerden birisini seçerek Tüm Verileri Göster butonuna tıklandığında tüm müşterilerden gelen ilgili ödeme ile alakalı sonuçlar görüntülenir. Tarih Filtresi ve Tüm Verileri Gösterme mantığı </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Müşterinin Aldığı Malzemeler</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">,</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\"> Müstah Görüntüleme</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">,</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\"> Müşteri Görüntüleme</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> bölümlerindekiyle aynıdır.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:20pt; font-weight:600; color:#ff0000;\">8.</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt; color:#ff0000;\"> </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:20pt; font-weight:600; color:#ff0000;\">SERA İŞLEMLERİ</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image043.png\" width=\"605\" height=\"41\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Menüler’de bulunan </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> simgesine tıkladığımızda aşağıdaki resimdeki sayfaya yönlendirlirsiniz.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image045.png\" width=\"605\" height=\"271\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Sera Geliri ya da Sera Gideri butonlarına tıklayarak yapılmak istenen işlemin sayfasına gidilebilir. İkiside benzer mantığa ve arayüze sahiptir.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Önce </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera Gelir</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> kısmını inceleyelim.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image047.png\" width=\"605\" height=\"361\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Girilmesi gereken parametreler;</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera Seç</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">, </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Ürün</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Seç</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">, </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Maliyet</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">, </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Adet</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> olmak üzere 4 tanedir. Yine tarih kutuları otomatik olarak güncel tarihe ayarlanır, ancak farklı tarihlere giriş yapmak imkanı da vardır. </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Mavi Ok</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> ile gösterilen butona tıklayarak </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:8pt; font-style:italic;\">(bu buton diğer 4 sera bölümünde de aynı işlevi yapmaktadır) </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera Ekleme</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> işlemi yapılabilir. </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Kırmızı Ok</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> ile ise daha önce yapılan </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera Gelir Geçmiş Girdileri</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> görüntülenir.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image049.png\" width=\"605\" height=\"359\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Sera Gelir Bilgileri sayfasında, seçilen serada daha önce hangi malların hangi tarihte ekildiği, kaç adet ve kaç liraya satıldığı bilgileri bulunmaktadır. Ayrıca belirli tarih arasında veya tüm tarihlerde hangi ortalama ile toplam ne kadar gelir getirdiği bilgileri de bulunmaktadır.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Burada </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; color:#ff0000;\">önemli bir nokta var</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">. Öncelik seçmeniz gereken parametre </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera Seç</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Kullanıcı seradan çıkan malın ortalamasını ve toplam gelirini görmek istiyorsa, ürün de seçmek zorundadır. Yoksa farklı mallardan ortalama fiyat çıkarılması mantığa ters düşer. Ancak Ortalama ve Genel Toplam harici de tüm gelirleri görmek istiyorsa Hepsi seçeneğini seçerek görüntüleme imkanı da vardır.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Ortalama ve Dip Toplam görmek için ürün de seçilmesi gerekmektedir.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> </span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Sera Giderlerini işlemek için ise bu bölümün başında göstermiş olduğumuz menüye giderek, Sera Gider butonuna tıklanması gerekmektedir.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image051.png\" width=\"605\" height=\"367\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Sera Gider kısmının girdileri şekildeki gibidir. Uygun giderler girildikten sonra toplam maliyet otomatik hesaplanmaktadır. Tarih yine güncel kısma ayarlanmış olup, işlem açıklaması da girilince onaylama gerçekleşebilir. Burada bir şey hatırlatmakta fayda var, zaten program da uyaracaktır. Açıklama kısmına </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-style:italic; text-decoration: underline;\">virgül girmemeniz gerekiyor</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">. Çünkü programın yapısına açıklamadaki virgüller zarar vermektedir. Geçmiş görüntülemek için Gelir Geçmişini Görüntüle’deki aynı mantıkla </span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt; font-weight:600;\">Sera Gider Geçmişini Görüntüle</span><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\"> butonuna tıklıyoruz.</span><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\"file:///C:/Users/MFT/AppData/Local/Temp/msohtmlclip1/01/clip_image053.png\" width=\"605\" height=\"367\" /><span style=\" font-size:8pt;\"> </span></p>\n"
+                                            "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial,sans-serif\'; font-size:12pt;\">Bu kısımda da yine tarih filtreleri veya tüm veri gösterme işlemleri aynı mantalite ile çalışmaktadır. Ve ortalama dip toplam işlemleri burada da geçerlidir.</span><span style=\" font-size:8pt;\"> </span></p></body></html>"))
+
+        self.label_mustahsildenUrunAl.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">MÜSTAHSİLDEN ÜRÜN AL</span></p></body></html>"))
+        self.label_mustahsildenUrunAl_islemKimligi.setText(_translate("MainWindow", "İşlem Kimliği : "))
+        self.label_mustahsildenUrunAl_kayitliMustahsil.setText(_translate("MainWindow", "Kayıtlı Müstahsil : "))
+        self.label_mustahsildenUrunAl_adet.setText(_translate("MainWindow", "Adet/Miktar : "))
+        self.label_mustahsildenUrunAl_maliyet.setText(_translate("MainWindow", "Maliyet : "))
+
+        ################################################################################################################
+        ## MÜSTAHSİL ÜRÜN ALIŞ SAYFASININ ÜRÜN COMBOBOX'I DATASTORE'DAN EKLENDİ
+        listFor_mustahsildenUrunAl_urunAdi = []
+        self.file_mustahsildenUrunAl_urunAdi =  open("datastore/urunler.dat", "r", encoding="UTF-8")
+        for i in self.file_mustahsildenUrunAl_urunAdi:
+            listFor_mustahsildenUrunAl_urunAdi.append(i.strip())
+        sorted_listFor_mustahsildenUrunAl_urunAdi = sorted(listFor_mustahsildenUrunAl_urunAdi, key=str.lower)
+        for i in range(len(sorted_listFor_mustahsildenUrunAl_urunAdi)):
+            self.comboBox_mustahsildenUrunAl_urunAdi.addItem(sorted_listFor_mustahsildenUrunAl_urunAdi[i])
+        ################################################################################################################
+
+        self.button_mustahsildenUrunAl_urunEkleme.setToolTip(_translate("MainWindow", "Ürün Ekle"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(1, _translate("MainWindow", "1"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(2, _translate("MainWindow", "2"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(3, _translate("MainWindow", "3"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(4, _translate("MainWindow", "4"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(5, _translate("MainWindow", "5"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(6, _translate("MainWindow", "6"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(7, _translate("MainWindow", "7"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(8, _translate("MainWindow", "8"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(9, _translate("MainWindow", "9"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(10, _translate("MainWindow", "10"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(11, _translate("MainWindow", "11"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(12, _translate("MainWindow", "12"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(13, _translate("MainWindow", "13"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(14, _translate("MainWindow", "14"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(15, _translate("MainWindow", "15"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(16, _translate("MainWindow", "16"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(17, _translate("MainWindow", "17"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(18, _translate("MainWindow", "18"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(19, _translate("MainWindow", "19"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(20, _translate("MainWindow", "20"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(21, _translate("MainWindow", "21"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(22, _translate("MainWindow", "22"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(23, _translate("MainWindow", "23"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(24, _translate("MainWindow", "24"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(25, _translate("MainWindow", "25"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(26, _translate("MainWindow", "26"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(27, _translate("MainWindow", "27"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(28, _translate("MainWindow", "28"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(29, _translate("MainWindow", "29"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(30, _translate("MainWindow", "30"))
+        self.comboBox_mustahsildenUrunAl_gun.setItemText(31, _translate("MainWindow", "31"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(1, _translate("MainWindow", "Ocak"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(2, _translate("MainWindow", "Şubak"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(3, _translate("MainWindow", "Mart"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(4, _translate("MainWindow", "Nisan"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(5, _translate("MainWindow", "Mayıs"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(6, _translate("MainWindow", "Haziran"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(7, _translate("MainWindow", "Temmuz"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(8, _translate("MainWindow", "Ağustos"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(9, _translate("MainWindow", "Eylül"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(10, _translate("MainWindow", "Ekim"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(11, _translate("MainWindow", "Kasım"))
+        self.comboBox_mustahsildenUrunAl_ay.setItemText(12, _translate("MainWindow", "Aralık"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(1, _translate("MainWindow", "2020"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(2, _translate("MainWindow", "2021"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(3, _translate("MainWindow", "2022"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(4, _translate("MainWindow", "2023"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(5, _translate("MainWindow", "2024"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(6, _translate("MainWindow", "2025"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(7, _translate("MainWindow", "2026"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(8, _translate("MainWindow", "2027"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(9, _translate("MainWindow", "2028"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(10, _translate("MainWindow", "2029"))
+        self.comboBox_mustahsildenUrunAl_yil.setItemText(11, _translate("MainWindow", "2030"))
+        self.label_mustahsildenUrunAl_urunAdi.setText(_translate("MainWindow", "Ürün Adı(Cinsi) : "))
+        self.label_mustahsildenUrunAl_tarih.setText(_translate("MainWindow", "Tarih : "))
+        #self.label_mustahsildenUrunAl_islemKimligi_detay.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#aa0000;\">102020xxxxxxxxxxx</span></p></body></html>"))
+        self.label_mustahsildenUrunAl_islemKimligi_detay.setText(_translate("MainWindow", "URNAL-xxxxxxxxxxx"))
+        self.label_mustahsildenUrunAl_maliyet_TL.setText(_translate("MainWindow", "₺"))
+        ################################################################################################################
+        ## MÜSTAHSİLDEN ÜRÜN AL SAYFASINA MÜSTAHSİLLER DOSYASINDAN EKLEME YAPILDI
+        # listFor_comboBox_mustahsildenUrunAl_kayitliMustahsil = []
+        # self.file_comboBox_mustahsildenUrunAl_kayitliMustahsil =  open("datastore/mustahsiller.dat", "r", encoding="UTF-8")
+        # for i in self.file_comboBox_mustahsildenUrunAl_kayitliMustahsil:
+        #     listFor_comboBox_mustahsildenUrunAl_kayitliMustahsil.append(i.strip())
+        # sorted_listFor_comboBox_mustahsildenUrunAl_kayitliMustahsil = sorted(listFor_comboBox_mustahsildenUrunAl_kayitliMustahsil, key=str.lower)
+        # for i in range(len(sorted_listFor_comboBox_mustahsildenUrunAl_kayitliMustahsil)):
+        #     self.comboBox_mustahsildenUrunAl_kayitliMustahsil.addItem(sorted_listFor_comboBox_mustahsildenUrunAl_kayitliMustahsil[i])
+        ################################################################################################################
+        self.button_mustahsildenUrunAl_mustahsilEkleme.setToolTip(_translate("MainWindow", "Müstahsil Ekle"))
+        self.label_mustahsildenUrunAl_tutar.setText(_translate("MainWindow", "Tutar : "))
+        self.label_mustahsildenUrunAl_tutar_sonuc.setText(_translate("MainWindow", "0"))
+        self.label_mustahsildenUrunAl_tutar_sonuc_TL.setText(_translate("MainWindow", "₺"))
+        self.pushButton_mustahsildenUrunAl_odemeSayfasinaGit.setText(_translate("MainWindow", "MÜSTAHSİL ÖDEME SAYFASINA GİT"))
+        self.pushButton_mustahsildenUrunAl_Onayla.setText(_translate("MainWindow", "MÜSTAHSİLDEN ÜRÜN ALIŞINI ONAYLA"))
+        self.label_mustahsilOdemeDetaylari.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">MÜSTAHSİL ÖDEME DETAYLARI</span></p></body></html>"))
+        self.button_mustahsilOdemeDetaylari_mustahsilEkleme.setToolTip(_translate("MainWindow", "Müstahsil Ekleme Bölümüne Git"))
+        self.label_mustahsilOdemeDetaylari_kayitliMustahsil.setText(_translate("MainWindow", "Kayıtlı Müstahsil : "))
+        self.comboBox_mustahsilOdemeDetaylari_odemeSekli.setItemText(0, _translate("MainWindow", "Ödeme Şekli Seçiniz"))
+        self.comboBox_mustahsilOdemeDetaylari_odemeSekli.setItemText(1, _translate("MainWindow", "Nakit"))
+        self.comboBox_mustahsilOdemeDetaylari_odemeSekli.setItemText(2, _translate("MainWindow", "Çek"))
+        self.button_mustahsilOdemeDetaylari_odemeSekliEkleme.setToolTip(_translate("MainWindow", "Ödeme Şekli Ekle"))
+        self.label_mustahsilOdemeDetaylari_odemeSekli.setText(_translate("MainWindow", "Ödeme Şekli : "))
+        self.label_mustahsilOdemeDetaylari_araciKurum.setText(_translate("MainWindow", "Aracı Kurum : "))
+        self.button_mustahsilOdemeDetaylari_araciKurumEkleme.setToolTip(_translate("MainWindow", "Aracı Kurum Ekle"))
+        self.label_mustahsilOdemeDetaylari_TL.setText(_translate("MainWindow", "₺"))
+        self.label_mustahsilOdemeDetaylari_odemeTutari.setText(_translate("MainWindow", "Ödeme Tutarı : "))
+        self.label_mustahsilOdemeDetaylari_islemKimligi_detay.setText(_translate("MainWindow", "ODMYP-xxxxxxxxxxx"))
+        self.label_mustahsilOdemeDetaylari_islemKimligi.setText(_translate("MainWindow", "İşlem Kimliği : "))
+        self.label_mustahsilOdemeDetaylari_tarih.setText(_translate("MainWindow", "Tarih : "))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(1, _translate("MainWindow", "1"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(2, _translate("MainWindow", "2"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(3, _translate("MainWindow", "3"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(4, _translate("MainWindow", "4"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(5, _translate("MainWindow", "5"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(6, _translate("MainWindow", "6"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(7, _translate("MainWindow", "7"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(8, _translate("MainWindow", "8"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(9, _translate("MainWindow", "9"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(10, _translate("MainWindow", "10"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(11, _translate("MainWindow", "11"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(12, _translate("MainWindow", "12"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(13, _translate("MainWindow", "13"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(14, _translate("MainWindow", "14"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(15, _translate("MainWindow", "15"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(16, _translate("MainWindow", "16"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(17, _translate("MainWindow", "17"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(18, _translate("MainWindow", "18"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(19, _translate("MainWindow", "19"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(20, _translate("MainWindow", "20"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(21, _translate("MainWindow", "21"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(22, _translate("MainWindow", "22"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(23, _translate("MainWindow", "23"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(24, _translate("MainWindow", "24"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(25, _translate("MainWindow", "25"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(26, _translate("MainWindow", "26"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(27, _translate("MainWindow", "27"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(28, _translate("MainWindow", "28"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(29, _translate("MainWindow", "29"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(30, _translate("MainWindow", "30"))
+        self.comboBox_mustahsilOdemeDetaylari_gun.setItemText(31, _translate("MainWindow", "31"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(1, _translate("MainWindow", "Ocak"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(2, _translate("MainWindow", "Şubak"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(3, _translate("MainWindow", "Mart"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(4, _translate("MainWindow", "Nisan"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(5, _translate("MainWindow", "Mayıs"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(6, _translate("MainWindow", "Haziran"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(7, _translate("MainWindow", "Temmuz"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(8, _translate("MainWindow", "Ağustos"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(9, _translate("MainWindow", "Eylül"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(10, _translate("MainWindow", "Ekim"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(11, _translate("MainWindow", "Kasım"))
+        self.comboBox_mustahsilOdemeDetaylari_ay.setItemText(12, _translate("MainWindow", "Aralık"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(1, _translate("MainWindow", "2020"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(2, _translate("MainWindow", "2021"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(3, _translate("MainWindow", "2022"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(4, _translate("MainWindow", "2023"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(5, _translate("MainWindow", "2024"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(6, _translate("MainWindow", "2025"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(7, _translate("MainWindow", "2026"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(8, _translate("MainWindow", "2027"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(9, _translate("MainWindow", "2028"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(10, _translate("MainWindow", "2029"))
+        self.comboBox_mustahsilOdemeDetaylari_yil.setItemText(11, _translate("MainWindow", "2030"))
+        self.pushButton_mustahsilOdemeOnay.setText(_translate("MainWindow", "MÜSTAHSİLE YAPILAN ÖDEMEYİ ONAYLA"))
+        self.label_musteriUrunSatis.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">MÜŞTERİYE SATILAN ÜRÜN BİLGİLERİ</span></p></body></html>"))
+
+        ################################################################################################################
+        ## MÜŞTERİ ÜRÜN SATIŞ SAYFASININ ÜRÜN COMBOBOX'I DATASTORE'DAN EKLENDİ
+        self.comboBox_musteriUrunSatis_urunAdi.setItemText(0, _translate("MainWindow", "Ürün Seçiniz"))
+        listFor_musteriUrunSatis_urunAdi = []
+        self.file_musteriUrunSatis_urunAdi =  open("datastore/urunler.dat", "r", encoding="UTF-8")
+        for i in self.file_musteriUrunSatis_urunAdi:
+            listFor_musteriUrunSatis_urunAdi.append(i.strip())
+        sorted_listFor_musteriUrunSatis_urunAdi = sorted(listFor_musteriUrunSatis_urunAdi, key=str.lower)
+        for i in range(len(sorted_listFor_musteriUrunSatis_urunAdi)):
+            self.comboBox_musteriUrunSatis_urunAdi.addItem(sorted_listFor_musteriUrunSatis_urunAdi[i])
+        ################################################################################################################
+
+        self.label_musteriUrunSatis_tutar.setText(_translate("MainWindow", "Tutar : "))
+
+        ################################################################################################################
+        ## MÜŞTERİ ÜRÜN SATIŞ SAYFASINA MÜŞTERİLER DOSYASINDAN EKLEME YAPILDI
+        # listFor_comboBox_musteriUrunSatis_KayitliMusteri = []
+        # self.file_comboBox_musteriUrunSatis_KayitliMusteri =  open("datastore/musteriler.dat", "r", encoding="UTF-8")
+        # for i in self.file_comboBox_musteriUrunSatis_KayitliMusteri:
+        #     listFor_comboBox_musteriUrunSatis_KayitliMusteri.append(i.strip())
+        # sorted_listFor_comboBox_musteriUrunSatis_KayitliMusteri = sorted(listFor_comboBox_musteriUrunSatis_KayitliMusteri, key=str.lower)
+        # for i in range(len(sorted_listFor_comboBox_musteriUrunSatis_KayitliMusteri)):
+        #     self.comboBox_musteriUrunSatis_KayitliMusteri.addItem(sorted_listFor_comboBox_musteriUrunSatis_KayitliMusteri[i])
+        ################################################################################################################
+
+        self.button_musteriUrunSatis_kayitliMusteriEkleme.setToolTip(_translate("MainWindow", "Müşteri Ekleme Bölümüne Git"))
+        self.label_musteriUrunSatis_adet.setText(_translate("MainWindow", "Adet/Miktar : "))
+        self.label_musteriUrunSatis_fiyat.setText(_translate("MainWindow", "Fiyat : "))
+        self.label_musteriUrunSatis_TL.setText(_translate("MainWindow", "₺"))
+        self.label_musteriUrunSatis_islemKimligi.setText(_translate("MainWindow", "İşlem Kimliği : "))
+        self.label_musteriUrunSatis_islemKimligi_detay.setText(_translate("MainWindow", "URNST-xxxxxxxxxxx"))
+        self.label_musteriUrunSatis_tarih.setText(_translate("MainWindow", "Tarih : "))
+        self.label_musteriUrunSatis_kayitliMusteri.setText(_translate("MainWindow", "Kayıtlı Müşteri : "))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(1, _translate("MainWindow", "1"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(2, _translate("MainWindow", "2"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(3, _translate("MainWindow", "3"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(4, _translate("MainWindow", "4"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(5, _translate("MainWindow", "5"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(6, _translate("MainWindow", "6"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(7, _translate("MainWindow", "7"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(8, _translate("MainWindow", "8"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(9, _translate("MainWindow", "9"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(10, _translate("MainWindow", "10"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(11, _translate("MainWindow", "11"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(12, _translate("MainWindow", "12"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(13, _translate("MainWindow", "13"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(14, _translate("MainWindow", "14"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(15, _translate("MainWindow", "15"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(16, _translate("MainWindow", "16"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(17, _translate("MainWindow", "17"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(18, _translate("MainWindow", "18"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(19, _translate("MainWindow", "19"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(20, _translate("MainWindow", "20"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(21, _translate("MainWindow", "21"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(22, _translate("MainWindow", "22"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(23, _translate("MainWindow", "23"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(24, _translate("MainWindow", "24"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(25, _translate("MainWindow", "25"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(26, _translate("MainWindow", "26"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(27, _translate("MainWindow", "27"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(28, _translate("MainWindow", "28"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(29, _translate("MainWindow", "29"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(30, _translate("MainWindow", "30"))
+        self.comboBox_musteriUrunSatis_Gun.setItemText(31, _translate("MainWindow", "31"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(1, _translate("MainWindow", "Ocak"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(2, _translate("MainWindow", "Şubak"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(3, _translate("MainWindow", "Mart"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(4, _translate("MainWindow", "Nisan"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(5, _translate("MainWindow", "Mayıs"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(6, _translate("MainWindow", "Haziran"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(7, _translate("MainWindow", "Temmuz"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(8, _translate("MainWindow", "Ağustos"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(9, _translate("MainWindow", "Eylül"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(10, _translate("MainWindow", "Ekim"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(11, _translate("MainWindow", "Kasım"))
+        self.comboBox_musteriUrunSatis_Ay.setItemText(12, _translate("MainWindow", "Aralık"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(1, _translate("MainWindow", "2020"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(2, _translate("MainWindow", "2021"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(3, _translate("MainWindow", "2022"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(4, _translate("MainWindow", "2023"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(5, _translate("MainWindow", "2024"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(6, _translate("MainWindow", "2025"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(7, _translate("MainWindow", "2026"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(8, _translate("MainWindow", "2027"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(9, _translate("MainWindow", "2028"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(10, _translate("MainWindow", "2029"))
+        self.comboBox_musteriUrunSatis_Yil.setItemText(11, _translate("MainWindow", "2030"))
+        self.label_musteriUrunSatis_urunAdi.setText(_translate("MainWindow", "Ürün Adı : "))
+        self.label_musteriUrunSatis_tutar_sonuc.setText(_translate("MainWindow", "0"))
+        self.label_musteriUrunSatis_tutar_sonuc_TL.setText(_translate("MainWindow", "₺"))
+        self.pushButton_musteriUrunSatis_musteridenOdemeAlmaSayfasnaGit.setText(_translate("MainWindow", "MÜŞTERİDEN ÖDEME AL"))
+        self.pushButton_musteriUrunSatis_Onayla.setText(_translate("MainWindow", "MÜŞTERİYE ÜRÜN SATIŞ İŞLEMİNİ ONAYLA"))
+        self.label_musteriUrunSatis_AlinanOdeme_.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">MÜŞTERİDEN ALINAN ÖDEME</span></p></body></html>"))
+        self.label_musteriUrunSatis_AlinanOdeme_turu.setText(_translate("MainWindow", "Alınan Ödeme Türü : "))
+        self.label_musteriUrunSatis_AlinanOdeme_kurumu.setText(_translate("MainWindow", "Aracı Kurum : "))
+        self.label_musteriUrunSatis_AlinanOdeme_miktari.setText(_translate("MainWindow", "Alınan Nakit Tutarı :  "))
+        self.label_musteriUrunSatis_AlinanOdeme_KayitliMusteri.setText(_translate("MainWindow", "Kayıtlı Müşteri : "))
+        self.button_musteriUrunSatis_AlinanOdeme_kayitliMusteriEkleme.setToolTip(_translate("MainWindow", "Müşteri Ekleme Bölümüne Git"))
+        self.button_musteriUrunSatis_AlinanOdeme_araciKurumEkleme.setToolTip(_translate("MainWindow", "Aracı Kurum Ekle"))
+        self.label_musteriUrunSatis_AlinanOdeme_islemKimligi.setText(_translate("MainWindow", "İşlem Kimliği : "))
+        self.label_musteriUrunSatis_AlinanOdeme_odemeyiAlanKisi.setText(_translate("MainWindow", "Ödemeyi Alan Kişi : "))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_turu.setItemText(0, _translate("MainWindow", "Alınan Ödeme Türünü Seçiniz"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_turu.setItemText(1, _translate("MainWindow", "Nakit"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_turu.setItemText(2, _translate("MainWindow", "Çek"))
+        self.button_musteriUrunSatis_AlinanOdeme_odemeSekliEkleme.setToolTip(_translate("MainWindow", "Ödeme Şekli Ekle"))
+        self.label_musteriUrunSatis_AlinanOdeme_tarih.setText(_translate("MainWindow", "Tarih : "))
+        self.lineEdit_musteriUrunSatis_AlinanOdeme_odemeyiAlanKisi.setPlaceholderText(_translate("MainWindow", "Ödemeyi kimin aldığını giriniz)"))
+        self.label_musteriUrunSatis_AlinanOdeme_islemKimligi_sonuc.setText(_translate("MainWindow", "ODMAL-xxxxxxxxxxx"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(1, _translate("MainWindow", "1"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(2, _translate("MainWindow", "2"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(3, _translate("MainWindow", "3"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(4, _translate("MainWindow", "4"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(5, _translate("MainWindow", "5"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(6, _translate("MainWindow", "6"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(7, _translate("MainWindow", "7"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(8, _translate("MainWindow", "8"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(9, _translate("MainWindow", "9"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(10, _translate("MainWindow", "10"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(11, _translate("MainWindow", "11"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(12, _translate("MainWindow", "12"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(13, _translate("MainWindow", "13"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(14, _translate("MainWindow", "14"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(15, _translate("MainWindow", "15"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(16, _translate("MainWindow", "16"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(17, _translate("MainWindow", "17"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(18, _translate("MainWindow", "18"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(19, _translate("MainWindow", "19"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(20, _translate("MainWindow", "20"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(21, _translate("MainWindow", "21"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(22, _translate("MainWindow", "22"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(23, _translate("MainWindow", "23"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(24, _translate("MainWindow", "24"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(25, _translate("MainWindow", "25"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(26, _translate("MainWindow", "26"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(27, _translate("MainWindow", "27"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(28, _translate("MainWindow", "28"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(29, _translate("MainWindow", "29"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(30, _translate("MainWindow", "30"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Gun.setItemText(31, _translate("MainWindow", "31"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(1, _translate("MainWindow", "Ocak"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(2, _translate("MainWindow", "Şubak"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(3, _translate("MainWindow", "Mart"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(4, _translate("MainWindow", "Nisan"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(5, _translate("MainWindow", "Mayıs"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(6, _translate("MainWindow", "Haziran"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(7, _translate("MainWindow", "Temmuz"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(8, _translate("MainWindow", "Ağustos"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(9, _translate("MainWindow", "Eylül"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(10, _translate("MainWindow", "Ekim"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(11, _translate("MainWindow", "Kasım"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Ay.setItemText(12, _translate("MainWindow", "Aralık"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(1, _translate("MainWindow", "2020"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(2, _translate("MainWindow", "2021"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(3, _translate("MainWindow", "2022"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(4, _translate("MainWindow", "2023"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(5, _translate("MainWindow", "2024"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(6, _translate("MainWindow", "2025"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(7, _translate("MainWindow", "2026"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(8, _translate("MainWindow", "2027"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(9, _translate("MainWindow", "2028"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(10, _translate("MainWindow", "2029"))
+        self.comboBox_musteriUrunSatis_AlinanOdeme_Yil.setItemText(11, _translate("MainWindow", "2030"))
+        self.pushButton_musteriUrunSatis_AlinanOdeme_onayla.setText(_translate("MainWindow", "MÜŞTERİDEN ALINAN ÖDEME İŞLEMİNİ ONAYLA"))
+        self.label_yeniKisi_baslik.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">YENİ MÜŞTERİ VEYA MÜSTAHSİL EKLE</span></p></body></html>"))
+        self.label_yeniKisi_adi.setText(_translate("MainWindow", "Adı : "))
+        self.
